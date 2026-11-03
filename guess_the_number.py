@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""A simple CLI number guessing game."""
+"""A simple CLI number guessing game with argparse."""
 
 import random
 import sys
+import argparse
 
-def play():
-    secret_number = random.randint(1, 100)
+def play(max_num):
+    secret_number = random.randint(1, max_num)
     attempts = 0
-    print("Welcome to Guess the Number!")
-    print("I'm thinking of a number between 1 and 100.")
+    print(f"Welcome to Guess the Number! (1-{max_num})")
     print("Type 'quit' to exit.\n")
 
     while True:
@@ -32,4 +32,7 @@ def play():
             print("Please enter a valid number.")
 
 if __name__ == "__main__":
-    play()
+    parser = argparse.ArgumentParser(description="Guess the Number game.")
+    parser.add_argument("-m", "--max", type=int, default=100, help="Maximum number (default: 100)")
+    args = parser.parse_args()
+    play(args.max)
